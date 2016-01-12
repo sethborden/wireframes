@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="header">
+    <div class="navigationbar clearfix">
+        <ul class="tabs">
+            <li class="tab special"><span class="glyphicon glyphicon-sunglasses"></span>IdeaFactory</li>
+            <li class="tab"><span class="glyphicon glyphicon-home"></span>Dashboard</li>
+            <li class="tab active"><span class="glyphicon glyphicon-plus-sign"></span>Create Test</li>
+            <li class="tab"><span class="glyphicon glyphicon-list"></span>Reports</li>
+            <li class="tab"><span class="glyphicon glyphicon-wrench"></span>Tools</li>
+            <li class="tab"><span class="glyphicon glyphicon-question-sign"></span>Help</li>
+        </ul>
+    </div>
+    <div class="header-title">
+        <div class="header-title-text"> Testing Scope</div>
+        <div class="header-title-progress-bar">
+            <span class="words">Progress:</span>
+            <span class="bar">
+                <span class="moving-bar"></span>
+            </span>
+        </div>
+    </div>
+</div>
+<div class="main-block">
+<div class="test-block col-md-3">
+    <div class="test-block-number">1</div>
+    <div class="title">A/B Test</div>
+    <div class="content">
+        <img class="content-image" src="images/abtest.png" alt="">
+        <div class="content-description">
+            <ul>
+            	<li>Choose different elements and test combination of changes</li>
+            </ul>
+        </div>
+    </div>
+    <button class="create-button col-md-10 col-md-offset-1">Create A/B Test</button>
+</div>
+<div class="test-block col-md-3">
+    <div class="test-block-number">2</div>
+    <div class="title">Multivariate Test</div>
+    <div class="content">
+        <img class="content-image" src="images/multivariatetest.png" alt="">
+        <div class="content-description">
+            <ul>
+            	<li>Chose different elements on your page and combine changes to test</li>
+            </ul>
+        </div>
+    </div>
+    <button class="create-button col-md-10 col-md-offset-1">Create Multivariate Test</button>
+</div>
+<div class="test-block col-md-3">
+    <div class="test-block-number">3</div>
+    <div class="title">Split URL Test</div>
+    <div class="content">
+        <img class="content-image" src="images/spliturltest.png" alt="">
+        <div class="content-description">
+            <ul>
+            	<li>Traffic is split randomly amongst different URLs you specify</li>
+            </ul>
+        </div>
+    </div>
+    <button class="create-button col-md-10 col-md-offset-1">Create Split URL Test</button>
+</div>
+<div class="test-block col-md-3">
+    <div class="test-block-number">4</div>
+    <div class="title">Geo-Behavioral Targeting</div>
+    <div class="content">
+        <img class="content-image" src="images/geotargetingtest.png" alt="">
+        <div class="content-description">
+            <ul>
+            	<li>Show targeted content to different segments of visitors</li>
+            </ul>
+        </div>
+    </div>
+    <button class="create-button col-md-10 col-md-offset-1">Create Targeting Campaign</button>
+</div>
+<div class="test-block col-md-3">
+    <div class="test-block-number">5</div>
+    <div class="title">Usability Test</div>
+    <div class="content">
+        <img class="content-image" src="images/usabilitytest.png" alt="">
+        <div class="content-description">
+            <ul>
+            	<li>Gather usability improvement feedback and A/B testing ideas</li>
+            </ul>
+        </div>
+    </div>
+    <button class="create-button col-md-10 col-md-offset-1">Create Usability Test</button>
+</div>
+<div class="test-block col-md-3">
+    <div class="test-block-number">6</div>
+    <div class="title">Heatmap & Clickmap</div>
+    <div class="content">
+        <img class="content-image" src="images/heatmapclicktest.png" alt="">
+        <div class="content-description">
+            <ul>
+            	<li>Create a heatmap to visualize where visitors are clicking on your page.</li>
+            </ul>
+        </div>
+    </div>
+    <button class="create-button col-md-10 col-md-offset-1">Create Heatmap & Clickmap</button>
+</div>
+</div>
+<script>
+//Code to make tabs work, tested in Chrome 47...probably will work elsewhere?
+//Everything is in POJS to reduce dependencies on jQuery/etc.
+var tabs = document.querySelectorAll('.tab');
+var buttons = document.querySelectorAll('.create-button');
+var progress = 0;
+
+var clearActiveTab = function() {
+    Array.prototype.forEach.call(tabs, function(tab) {
+        var classes = tab.className.split(" "), activeIdx
+        if((activeIdx = classes.indexOf('active')) > -1) {
+            classes.splice(activeIdx, 1);
+        }
+        tab.className = classes.join(' ');
+    });
+}
+
+var setActiveTab = function(target) {
+    var classes = target.className.split(" ");
+    if(classes.indexOf('active') === -1) {
+        classes.push('active');
+    }
+    target.className = classes.join(' ');
+};
+
+var setTabTitle = function(newTitle) {
+    var titleDiv = document.querySelector('.header-title-text');
+    titleDiv.innerText = newTitle;
+};
+
+Array.prototype.forEach.call(tabs, function(tab) {
+    tab.addEventListener('click', function handleClick(e) {
+        if(e.target.className.split(' ').indexOf('tab') !== -1) {
+            clearActiveTab();
+            setActiveTab(e.target);
+            setTabTitle(e.target.innerText);
+        }
+    });
+});
+
+//Code to make the progress bar move
+var redrawProgress = function() {
+    var progressBar = document.querySelector('.moving-bar');
+    progressBar.style.width = progress + '%';
+};
+
+Array.prototype.forEach.call(buttons, function(btn) {
+    btn.addEventListener('click', function handleClick(e) {
+        progress = progress === 100 ? 0 : progress + 10;
+        redrawProgress();
+    });
+});
+
+
+</script>
+</body>
+</html>
