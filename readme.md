@@ -7,7 +7,7 @@ framework was used to get the sizing of the columns correct as and to import the
 bootstrap glyphicons.
 
 The original image looks like this:
-![](VWO-List-of-Tests.png =640x480)
+![](images/VWO-List-of-Tests.png =640x480)
 
 _The tabs, progress bar, buttons, and pretty much everything else was hand
 coded._
