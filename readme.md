@@ -12,6 +12,6 @@ The original image looks like this:
 _The tabs, progress bar, buttons, and pretty much everything else was hand
 coded._
 
-There's little value in this aside from this serving as a portfolio piece. To view it, clone the repo and run an http server from its root directory. (I'd recommend [lite-server](https://github.com/johnpapa/lite-server) as it does a great job of updating changes in real time.)
+There's little value in this aside from this serving as a portfolio piece. See it in action [here](https://sethborden.github.io/wireframes)
 
 ##### Original image is from [here](https://www.ventureharbour.com/wp-content/uploads/2014/05/VWO-List-of-Tests.png)
